@@ -4,12 +4,10 @@ module.exports = {
     es2021: true,
   },
   extends: 'airbnb-base',
-  overrides: [
-  ],
+  overrides: ['comma-dangle', ['error', 'never']],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  rules: {
-  },
+  rules: {},
 };

@@ -1,3 +1,6 @@
-import fetchWeather from './fetch_weather';
+import { buildContainer, buildHeader } from './components';
+import { citySubmit } from './events';
 
-fetchWeather('Indianapolis');
+buildContainer();
+buildHeader();
+citySubmit();
