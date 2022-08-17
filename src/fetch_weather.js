@@ -5,8 +5,12 @@ const fetchWeather = async (city) => {
       `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`,
       { cors: true }
     );
-    const weather = await weather5d3hr.json();
-    return weather;
+    const currentWeather = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+    );
+    const weather5d = await weather5d3hr.json();
+    const cWeather = await currentWeather.json();
+    return [cWeather, weather5d];
   } catch {
     console.log(err);
   }

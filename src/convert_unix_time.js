@@ -23,13 +23,13 @@ const convertUnixTime = (dt) => {
     'Friday',
     'Saturday',
   ];
-  const year = moment.getFullYear();
-  const month = months[moment.getMonth()];
-  const day = days[moment.getDay()];
-  const date = moment.getDate();
-  const hour = moment.getHours();
-  const min = moment.getMinutes();
-  const sec = moment.getSeconds();
+  const year = moment.getUTCFullYear();
+  const month = months[moment.getUTCMonth()];
+  const day = days[moment.getUTCDay()];
+  const date = moment.getUTCDate();
+  const hour = moment.getUTCHours();
+  const min = moment.getUTCMinutes();
+  const sec = moment.getUTCSeconds();
   const dateObj = { year, month, date, day, hour, min, sec };
   return dateObj;
 };
