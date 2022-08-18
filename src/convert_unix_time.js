@@ -31,6 +31,9 @@ const convertUnixTime = (dt) => {
   const min = moment.getUTCMinutes();
   const sec = moment.getUTCSeconds();
   const dateObj = { year, month, date, day, hour, min, sec };
+  //   console.log(
+  //     moment.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+  //   );
   return dateObj;
 };
 

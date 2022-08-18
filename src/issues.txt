@@ -1,1 +1,2 @@
 hitting search with a blank field causes console errors
+times are all fucky

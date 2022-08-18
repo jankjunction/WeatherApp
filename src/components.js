@@ -16,7 +16,7 @@ const buildLogo = (header) => {
 };
 
 const buildCitySearch = (header) => {
-  let citySearchForm = document.createElement('form');
+  let citySearchForm = document.createElement('div');
   citySearchForm.setAttribute('id', 'city-search-form');
   let citySearch = document.createElement('input');
   citySearch.setAttribute('type', 'text');
@@ -44,6 +44,7 @@ const buildHeader = () => {
 const buildContent = (cityData) => {
   let container = document.getElementById('container');
   let isContent = document.getElementById('city-slug');
+  let is3hr = document.getElementById('three-hr-container');
   let citySlug = document.createElement('div');
   citySlug.setAttribute('id', 'city-slug');
   container.appendChild(citySlug);
@@ -53,6 +54,7 @@ const buildContent = (cityData) => {
     dateTime();
     currentTemp();
     currentWeather();
+    build3Hour();
   };
 
   const city = () => {
@@ -89,11 +91,18 @@ const buildContent = (cityData) => {
       let hour = dateData.hour + cityData[0].timezone / 3600;
       let min = dateData.min;
       let amPM = '';
+      console.log(Math.sign(hour) === -1);
+      if (Math.sign(hour) === -1) {
+        hour += 20;
+      }
+      if (hour < 12) {
+        amPM = 'a.m.';
+      }
       if (hour > 12) {
         hour -= 12;
         amPM = 'p.m.';
       } else {
-        amPM = 'a.m.';
+        amPM = 'p.m.';
       }
       if (dateData.min < 10) {
         time.innerText = `${hour}:0${min} ${amPM}`;
@@ -121,19 +130,88 @@ const buildContent = (cityData) => {
   };
 
   const currentWeather = () => {
+    let conditionContainer = document.createElement('div');
+    conditionContainer.setAttribute('id', 'condition-container');
+    citySlug.appendChild(conditionContainer);
+
     let weatherCondition = document.createElement('span');
     weatherCondition.setAttribute('id', 'condition');
-    citySlug.appendChild(weatherCondition);
+    conditionContainer.appendChild(weatherCondition);
     weatherCondition.innerText = cityData[0].weather[0].main;
 
     let weatherDescription = document.createElement('span');
     weatherDescription.setAttribute('id', 'weather-description');
-    citySlug.appendChild(weatherDescription);
+    conditionContainer.appendChild(weatherDescription);
     weatherDescription.innerText = cityData[0].weather[0].description;
+
+    let weatherIcon = document.createElement('img');
+    weatherIcon.setAttribute(
+      'src',
+      `http://openweathermap.org/img/wn/${cityData[0].weather[0].icon}@2x.png`
+    );
+    weatherIcon.setAttribute('id', 'weather-icon');
+    conditionContainer.appendChild(weatherIcon);
   };
 
-  if (isContent) {
+  const build3Hour = () => {
+    let threeHourContainer = document.createElement('div');
+    threeHourContainer.setAttribute('id', 'three-hr-container');
+    container.appendChild(threeHourContainer);
+
+    const threeHourHelper = (segment) => {
+      let threeHrChunk = document.createElement('div');
+      threeHrChunk.setAttribute('class', 'three-hr-chunk');
+      threeHourContainer.appendChild(threeHrChunk);
+
+      let dateData = convertUnixTime(segment.dt);
+      let time = document.createElement('span');
+      {
+        let hour = dateData.hour + cityData[0].timezone / 3600;
+        let min = dateData.min;
+        let amPM = '';
+        if (Math.sign(hour) === -1) {
+          hour += 24;
+        }
+        if (hour < 12) {
+          amPM = 'a.m.';
+        }
+        if (hour > 12) {
+          hour -= 12;
+          amPM = 'p.m.';
+        }
+        if (hour === 12) {
+          amPM = 'p.m.';
+        }
+        if (dateData.min < 10) {
+          time.innerText = `${hour}:0${min} ${amPM}`;
+        } else {
+          time.innerText = `${hour}:${min} ${amPM}`;
+        }
+      }
+
+      let threeHrTemp = document.createElement('span');
+      threeHrTemp.innerText =
+        Math.round(tempConvert.kToF(segment.main.temp)) + '° F';
+
+      let threeHrCondition = document.createElement('span');
+      threeHrCondition.innerText = segment.weather[0].main;
+
+      let threeHrRain = document.createElement('span');
+      threeHrRain.innerText = segment.pop + '% PoP';
+
+      [time, threeHrTemp, threeHrCondition, threeHrRain].forEach((element) => {
+        threeHrChunk.appendChild(element);
+      });
+    };
+
+    cityData[1].list.forEach((element) => {
+      threeHourHelper(element);
+    });
+  };
+
+  if (isContent && is3hr) {
     clearDiv(isContent);
+    clearDiv(is3hr);
     builder();
   } else {
     builder();
