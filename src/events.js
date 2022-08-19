@@ -8,8 +8,11 @@ const citySubmit = () => {
   const cityHelper = async () => {
     let citySearch = document.getElementById('city-search');
     let cityWeather = await fetchWeather(citySearch.value);
-    console.log(cityWeather);
-    buildContent(cityWeather);
+    if (citySearch.value === '') {
+      alert('You must enter a city');
+    } else {
+      buildContent(cityWeather);
+    }
   };
 
   submit.addEventListener('click', () => {
