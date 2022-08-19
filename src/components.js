@@ -32,6 +32,25 @@ const buildCitySearch = (header) => {
   header.appendChild(citySearchForm);
 };
 
+const tempFC = (header) => {
+  let toggle = document.createElement('div');
+  toggle.setAttribute('id', 'toggle');
+
+  let celsius = document.createElement('span');
+  celsius.setAttribute('id', 'celsius');
+  celsius.innerText = 'C°';
+
+  let fahrenheit = document.createElement('span');
+  fahrenheit.setAttribute('id', 'fahrenheit');
+  fahrenheit.innerText = 'F°';
+  fahrenheit.classList.toggle('active');
+
+  toggle.appendChild(celsius);
+  toggle.appendChild(fahrenheit);
+
+  header.appendChild(toggle);
+};
+
 const buildHeader = () => {
   let header = document.createElement('div');
   header.setAttribute('id', 'header');
@@ -39,6 +58,7 @@ const buildHeader = () => {
   container.appendChild(header);
   buildLogo(header);
   buildCitySearch(header);
+  tempFC(header);
 };
 
 const buildContent = (cityData) => {
@@ -124,6 +144,7 @@ const buildContent = (cityData) => {
 
     let temp = document.createElement('span');
     temp.setAttribute('id', 'current-temp');
+    temp.setAttribute('class', 'temp');
     temp.innerText =
       Math.round(tempConvert.kToF(cityData[0].main.temp)) + '° F';
     currentWeatherContainer.appendChild(temp);
@@ -190,6 +211,7 @@ const buildContent = (cityData) => {
       }
 
       let threeHrTemp = document.createElement('span');
+      threeHrTemp.setAttribute('class', 'temp');
       threeHrTemp.innerText =
         Math.round(tempConvert.kToF(segment.main.temp)) + '° F';
 

@@ -1,5 +1,6 @@
 import fetchWeather from './fetch_weather';
 import { buildContent } from './components';
+import tempToggle from './temptoggle';
 
 const citySubmit = () => {
   let submit = document.getElementById('city-search-submit');
@@ -24,4 +25,16 @@ const citySubmit = () => {
   });
 };
 
-export { citySubmit };
+const tempToggleBtn = () => {
+  document.addEventListener('click', (e) => {
+    if (e.target.parentNode.id === 'toggle') {
+      let celsius = document.getElementById('celsius');
+      celsius.classList.toggle('active');
+      let fahrenheit = document.getElementById('fahrenheit');
+      fahrenheit.classList.toggle('active');
+      tempToggle();
+    }
+  });
+};
+
+export { citySubmit, tempToggleBtn };

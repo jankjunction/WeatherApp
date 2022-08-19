@@ -151,13 +151,49 @@ html {
     padding: 8px;
   }
 
+#toggle {
+    position: relative;
+    align-self: center;
+    top: 6px;
+}
+
+  #celsius, #fahrenheit {
+    font-weight: 550;
+    color: black;
+    background-color: white;
+    font-size: 1rem;
+    padding: 6px;
+  }
+
+  #celsius {
+    color: black;
+    background-color: white;
+    border-radius: 8px 0px 0px 8px;
+  }
+
+  #fahrenheit {
+    color: black;
+    background-color: white;
+    border-radius: 0px 8px 8px 0px;
+  }
+
+  #toggle > .active {
+    color: white;
+    background-color: #5fbcd4;
+    border: 1px solid black;
+  }
+
   @media screen and (max-width: 500px) {
     #header {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 16px;
         align-items: center;
         justify-items: center;
+    }
+
+    #city-search-form {
+        top: 0px;
     }
 
     #city-slug {
