@@ -10,9 +10,18 @@ const fetchWeather = async (city) => {
     );
     const weather5d = await weather5d3hr.json();
     const cWeather = await currentWeather.json();
+
+    if (weather5d.message) {
+      throw `${weather5d.message}`;
+    }
+    if (cWeather.message) {
+      throw `${cWeather.message}`;
+    }
+
     return [cWeather, weather5d];
-  } catch {
-    console.log(err);
+  } catch (error) {
+    alert(error);
+    return;
   }
 };
 export default fetchWeather;

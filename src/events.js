@@ -9,9 +9,14 @@ const citySubmit = () => {
     let citySearch = document.getElementById('city-search');
     let cityWeather = await fetchWeather(citySearch.value);
     if (citySearch.value === '') {
-      alert('You must enter a city');
     } else {
-      buildContent(cityWeather);
+      if (cityWeather) {
+        if (cityWeather[0].cod != '200') {
+          throw console.error(`${cityWeather[0].message} Hey there`);
+        } else {
+          buildContent(cityWeather);
+        }
+      }
     }
   };
 
