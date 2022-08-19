@@ -35,12 +35,15 @@ const citySubmit = () => {
 
 const tempToggleBtn = () => {
   document.addEventListener('click', (e) => {
+    let container = document.getElementById('container');
     if (e.target.parentNode.id === 'toggle') {
-      let celsius = document.getElementById('celsius');
-      celsius.classList.toggle('active');
-      let fahrenheit = document.getElementById('fahrenheit');
-      fahrenheit.classList.toggle('active');
-      tempToggle();
+      if (container.childNodes.length > 1) {
+        let celsius = document.getElementById('celsius');
+        celsius.classList.toggle('active');
+        let fahrenheit = document.getElementById('fahrenheit');
+        fahrenheit.classList.toggle('active');
+        tempToggle();
+      }
     }
   });
 };
