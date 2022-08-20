@@ -113,7 +113,7 @@ const buildContent = (cityData) => {
       let amPM = '';
       console.log(Math.sign(hour) === -1);
       if (Math.sign(hour) === -1) {
-        hour += 20;
+        hour += 24;
       }
       if (hour < 12) {
         amPM = 'a.m.';
@@ -121,7 +121,8 @@ const buildContent = (cityData) => {
       if (hour > 12) {
         hour -= 12;
         amPM = 'p.m.';
-      } else {
+      }
+      if (hour === 12) {
         amPM = 'p.m.';
       }
       if (dateData.min < 10) {
@@ -190,6 +191,7 @@ const buildContent = (cityData) => {
         let hour = dateData.hour + cityData[0].timezone / 3600;
         let min = dateData.min;
         let amPM = '';
+        console.log(hour);
         if (Math.sign(hour) === -1) {
           hour += 24;
         }
