@@ -219,7 +219,7 @@ const buildContent = (cityData) => {
       threeHrCondition.innerText = segment.weather[0].main;
 
       let threeHrRain = document.createElement('span');
-      threeHrRain.innerText = segment.pop + '% PoP';
+      threeHrRain.innerText = Math.round(segment.pop * 100) + '% PoP';
 
       [time, threeHrTemp, threeHrCondition, threeHrRain].forEach((element) => {
         threeHrChunk.appendChild(element);
