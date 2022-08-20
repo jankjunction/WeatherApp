@@ -98,7 +98,6 @@ const buildContent = (cityData) => {
     let moment = document.createElement('div');
     moment.setAttribute('id', 'moment');
     let dateData = convertUnixTime(cityData[0].dt);
-    console.log(cityData[0].timezone);
 
     let date = document.createElement('span');
     date.setAttribute('id', 'date');
@@ -111,15 +110,17 @@ const buildContent = (cityData) => {
       let hour = dateData.hour + cityData[0].timezone / 3600;
       let min = dateData.min;
       let amPM = '';
-      console.log(Math.sign(hour) === -1);
       if (Math.sign(hour) === -1) {
         hour += 24;
+      }
+      if (hour >= 25) {
+        hour += -24;
       }
       if (hour < 12) {
         amPM = 'a.m.';
       }
       if (hour > 12) {
-        hour -= 12;
+        hour += -12;
         amPM = 'p.m.';
       }
       if (hour === 12) {
@@ -191,18 +192,20 @@ const buildContent = (cityData) => {
         let hour = dateData.hour + cityData[0].timezone / 3600;
         let min = dateData.min;
         let amPM = '';
-        console.log(hour);
         if (Math.sign(hour) === -1) {
           hour += 24;
+        }
+        if (hour >= 25) {
+          hour += -24;
         }
         if (hour < 12) {
           amPM = 'a.m.';
         }
-        if (hour > 12) {
-          hour -= 12;
+        if (hour === 12) {
           amPM = 'p.m.';
         }
-        if (hour === 12) {
+        if (hour > 12) {
+          hour += -12;
           amPM = 'p.m.';
         }
         if (dateData.min < 10) {
